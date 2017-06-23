@@ -11,39 +11,32 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-/**
- * ��Ϣ�����
- * @author Administrator
- *
- */
 public class JMSProducer {
 
-	private static final String USERNAME=ActiveMQConnection.DEFAULT_USER; // Ĭ�ϵ������û���
-	private static final String PASSWORD=ActiveMQConnection.DEFAULT_PASSWORD; // Ĭ�ϵ���������
-	private static final String BROKEURL=ActiveMQConnection.DEFAULT_BROKER_URL; // Ĭ�ϵ����ӵ�ַ
-	private static final int SENDNUM=10; // ���͵���Ϣ����
+	private static final String USERNAME=ActiveMQConnection.DEFAULT_USER; 
+	private static final String PASSWORD=ActiveMQConnection.DEFAULT_PASSWORD; 
+	private static final String BROKEURL=ActiveMQConnection.DEFAULT_BROKER_URL; 
+	private static final int SENDNUM=10; 
 	
 	public static void main(String[] args) {
 		
-		ConnectionFactory connectionFactory; // ���ӹ���
-		Connection connection = null; // ����
-		Session session; // �Ự ���ܻ��߷�����Ϣ���߳�
-		Destination destination; // ��Ϣ��Ŀ�ĵ�
-		MessageProducer messageProducer; // ��Ϣ�����
+		ConnectionFactory connectionFactory; 
+		Connection connection = null; 
+		Session session; 
+		Destination destination;
+		MessageProducer messageProducer;
 		
-		// ʵ�����ӹ���
 		connectionFactory=new ActiveMQConnectionFactory(JMSProducer.USERNAME, JMSProducer.PASSWORD, JMSProducer.BROKEURL);
 		
 		try {
-			connection=connectionFactory.createConnection(); // ͨ�����ӹ�����ȡ����
-			connection.start(); // ��������
-			session=connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE); // ����Session
-			destination=session.createQueue("FirstQueue1"); // ������Ϣ����
-			messageProducer=session.createProducer(destination); // ������Ϣ�����
-			sendMessage(session, messageProducer); // ������Ϣ
+			connection=connectionFactory.createConnection();
+			connection.start();
+			session=connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
+			destination=session.createQueue("FirstQueue1"); 
+			messageProducer=session.createProducer(destination); 
+			sendMessage(session, messageProducer); 
 			session.commit();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
 			if(connection!=null){

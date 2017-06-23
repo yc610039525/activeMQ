@@ -10,37 +10,30 @@ import javax.jms.Session;
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
-/**
- * ��Ϣ�����-��Ϣ�����߶�
- * @author Administrator
- *
- */
 public class JMSConsumer2 {
 
-	private static final String USERNAME=ActiveMQConnection.DEFAULT_USER; // Ĭ�ϵ������û���
-	private static final String PASSWORD=ActiveMQConnection.DEFAULT_PASSWORD; // Ĭ�ϵ���������
-	private static final String BROKEURL=ActiveMQConnection.DEFAULT_BROKER_URL; // Ĭ�ϵ����ӵ�ַ
+	private static final String USERNAME=ActiveMQConnection.DEFAULT_USER; // 默锟较碉拷锟斤拷锟斤拷锟矫伙拷锟斤拷
+	private static final String PASSWORD=ActiveMQConnection.DEFAULT_PASSWORD; // 默锟较碉拷锟斤拷锟斤拷锟斤拷锟斤拷
+	private static final String BROKEURL=ActiveMQConnection.DEFAULT_BROKER_URL; // 默锟较碉拷锟斤拷锟接碉拷址
 	
 	public static void main(String[] args) {
-		ConnectionFactory connectionFactory; // ���ӹ���
-		Connection connection = null; // ����
-		Session session; // �Ự ���ܻ��߷�����Ϣ���߳�
-		Destination destination; // ��Ϣ��Ŀ�ĵ�
-		MessageConsumer messageConsumer; // ��Ϣ�������
+		ConnectionFactory connectionFactory; 
+		Connection connection = null; 
+		Session session; 
+		Destination destination; 
+		MessageConsumer messageConsumer; 
 		
-		// ʵ�����ӹ���
 		connectionFactory=new ActiveMQConnectionFactory(JMSConsumer2.USERNAME, JMSConsumer2.PASSWORD, JMSConsumer2.BROKEURL);
 				
 		try {
-			connection=connectionFactory.createConnection();  // ͨ�����ӹ�����ȡ����
-			connection.start(); // ��������
-			session=connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE); // ����Session
-			// destination=session.createQueue("FirstQueue1");  // �������ӵ���Ϣ����
+			connection=connectionFactory.createConnection(); 
+			connection.start();
+			session=connection.createSession(Boolean.FALSE, Session.AUTO_ACKNOWLEDGE); 
+			// destination=session.createQueue("FirstQueue1");  
 			destination=session.createTopic("FirstTopic1");
-			messageConsumer=session.createConsumer(destination); // ������Ϣ�����
-			messageConsumer.setMessageListener(new Listener2()); // ע����Ϣ����
+			messageConsumer=session.createConsumer(destination); 
+			messageConsumer.setMessageListener(new Listener2());
 		} catch (JMSException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}
